@@ -13,7 +13,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:   python-%{pypi_name}
 Version:    0.5.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -92,6 +92,9 @@ It contains the documentation for stestr.
 rm -rf %{pypi_name}.egg-info
 rm -f test-requirements.txt requirements.txt
 
+# Remove pbr>=2.0.0 version as it is required for pike
+sed -i 's/pbr>=2.0.0/pbr/g' setup.py
+
 %build
 %py2_build
 
@@ -152,6 +155,9 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %endif
 
 %changelog
+* Tue Aug 01 2017 Chandan Kumar <chkumar246@gmail.com> - 0.5.0-3
+- Use sed to remove pbr>=2.0.0 dependency
+
 * Tue Aug 01 2017 Chandan Kumar <chkumar246@gmail.com> - 0.5.0-2
 - Fixed rpmlint errors
 
