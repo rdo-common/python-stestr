@@ -13,7 +13,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:   python-%{pypi_name}
 Version:    0.5.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -30,23 +30,31 @@ Summary:    A test runner runner similar to testrepository
 
 BuildRequires:    python2-devel
 BuildRequires:    python-setuptools
-BuildRequires:    python-pbr
+BuildRequires:    python2-pbr
 
 # Test Requirements
-BuildRequires:   python-mock
-#BuildRequires:  python-subunit2sql
+BuildRequires:   python2-mock
+# BuildRequires:   python2-subunit2sql
 
-Requires:   python-pbr
-Requires:   python-future
-Requires:   python-subunit
-Requires:   python-fixtures
-Requires:   python-six
-Requires:   python-testtools
-Requires:   PyYAML
-# Requires:   python-subunit2sql
+Requires:   python2-pbr
+Requires:   python2-future
+Requires:   python2-subunit
+Requires:   python2-fixtures
+Requires:   python2-six
+Requires:   python2-testtools
+Requires:   python2-PyYAML
 
 %description -n python2-%{pypi_name}
 %{common_desc}
+
+%package -n     python2-%{pypi_name}-sql
+Summary:    sql plugin for stestr
+
+Requires:       python2-%{pypi_name} = %{version}-%{release}
+# Requires:       python2-subunit2sql
+
+%description    -n python2-%{pypi_name}-sql
+It contains the sql plugin for stestr.
 
 %if %{with python3}
 %package -n     python3-%{pypi_name}
@@ -68,10 +76,18 @@ Requires:   python3-fixtures
 Requires:   python3-six
 Requires:   python3-testtools
 Requires:   python3-PyYAML
-# Requires:   python3-subunit2sql
 
 %description -n python3-%{pypi_name}
 %{common_desc}
+
+%package -n     python3-%{pypi_name}-sql
+Summary:    sql plugin for stestr
+
+Requires:       python3-%{pypi_name} = %{version}-%{release}
+# Requires:       python3-subunit2sql
+
+%description    -n python3-%{pypi_name}-sql
+It contains the sql plugin for stestr.
 %endif
 
 %if 0%{?with_doc}
@@ -133,7 +149,11 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %{_bindir}/stestr-2
 %{_bindir}/stestr-%{python2_version}
 %{python2_sitelib}/%{pypi_name}
+%exclude %{python2_sitelib}/%{pypi_name}/repository/sql.py
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+
+%files -n python2-%{pypi_name}-sql
+%{python2_sitelib}/%{pypi_name}/repository/sql.py
 
 %if %{with python3}
 %files -n python3-%{pypi_name}
@@ -142,7 +162,11 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %{_bindir}/stestr-3
 %{_bindir}/stestr-%{python3_version}
 %{python3_sitelib}/%{pypi_name}
+%exclude %{python3_sitelib}/%{pypi_name}/repository/sql.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+
+%files -n python3-%{pypi_name}-sql
+%{python3_sitelib}/%{pypi_name}/repository/sql.py
 %endif
 
 %if 0%{?with_doc}
@@ -152,6 +176,9 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %endif
 
 %changelog
+* Thu Aug 10 2017 Chandan Kumar <chkumar246@gmail.com> - 0.5.0-3
+- Added -sql subpackage
+
 * Tue Aug 01 2017 Chandan Kumar <chkumar246@gmail.com> - 0.5.0-2
 - Fixed rpmlint errors
 
