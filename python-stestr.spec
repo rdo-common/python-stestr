@@ -13,7 +13,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:   python-%{pypi_name}
 Version:    1.0.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -34,7 +34,13 @@ BuildRequires:    python2-pbr
 
 # Test Requirements
 BuildRequires:   python2-mock
-# BuildRequires:   python2-subunit2sql
+BuildRequires:   python2-subunit2sql
+BuildRequires:   python2-future
+BuildRequires:   python2-subunit
+BuildRequires:   python2-fixtures
+BuildRequires:   python2-six
+BuildRequires:   python2-testtools
+BuildRequires:   python2-pyyaml
 
 Requires:   python2-pbr
 Requires:   python2-future
@@ -42,7 +48,7 @@ Requires:   python2-subunit
 Requires:   python2-fixtures
 Requires:   python2-six
 Requires:   python2-testtools
-Requires:   python2-PyYAML
+Requires:   python2-pyyaml
 
 %description -n python2-%{pypi_name}
 %{common_desc}
@@ -51,7 +57,7 @@ Requires:   python2-PyYAML
 Summary:    sql plugin for stestr
 
 Requires:       python2-%{pypi_name} = %{version}-%{release}
-#Requires:       python2-subunit2sql
+Requires:       python2-subunit2sql
 
 %description    -n python2-%{pypi_name}-sql
 It contains the sql plugin for stestr.
@@ -66,8 +72,14 @@ BuildRequires:    python3-setuptools
 BuildRequires:    python3-pbr
 
 # Test Requirements
-BuildRequires:    python3-mock
-# BuildRequires:  python3-subunit2sql
+BuildRequires:   python3-mock
+BuildRequires:   python3-subunit2sql
+BuildRequires:   python3-future
+BuildRequires:   python3-subunit
+BuildRequires:   python3-fixtures
+BuildRequires:   python3-six
+BuildRequires:   python3-testtools
+BuildRequires:   python3-PyYAML
 
 Requires:   python3-pbr
 Requires:   python3-future
@@ -84,7 +96,7 @@ Requires:   python3-PyYAML
 Summary:    sql plugin for stestr
 
 Requires:       python3-%{pypi_name} = %{version}-%{release}
-# Requires:       python3-subunit2sql
+Requires:       python3-subunit2sql
 
 %description    -n python3-%{pypi_name}-sql
 It contains the sql plugin for stestr.
@@ -138,11 +150,10 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 
 
 %check
-# Skipping tests as python-subunit2sql is not available
-%{__python2} setup.py test ||
+%{__python2} setup.py test
 
 %if %{with python3}
-%{__python3} setup.py test ||
+%{__python3} setup.py test
 %endif
 
 %files -n python2-%{pypi_name}
@@ -179,6 +190,9 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %endif
 
 %changelog
+* Fri Sep 15 2017 Chandan Kumar <chkumar246@gmail.com> - 1.0.0-3
+- Fixed test requirements and enabled subunit2sql
+
 * Fri Sep 15 2017 Chandan Kumar <chkumar246@gmail.com> - 1.0.0-2
 - Disable subunit2sql
 
