@@ -36,19 +36,21 @@ BuildRequires:    python2-pbr
 BuildRequires:   python2-mock
 BuildRequires:   python2-subunit2sql
 BuildRequires:   python2-future
+BuildRequires:   python-futures
 BuildRequires:   python2-subunit
-BuildRequires:   python2-fixtures
+BuildRequires:   python-fixtures
 BuildRequires:   python2-six
 BuildRequires:   python2-testtools
-BuildRequires:   python2-pyyaml
+BuildRequires:   python-yaml
 
 Requires:   python2-pbr
 Requires:   python2-future
+Requires:   python-futures
 Requires:   python2-subunit
-Requires:   python2-fixtures
+Requires:   python-fixtures
 Requires:   python2-six
 Requires:   python2-testtools
-Requires:   python2-pyyaml
+Requires:   python-yaml
 
 %description -n python2-%{pypi_name}
 %{common_desc}
