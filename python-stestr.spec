@@ -12,8 +12,8 @@ which enabled testr to work with any subunit emitting runner are gone. \
 stestr hard codes python-subunit-isms into how it works.
 
 Name:   python-%{pypi_name}
-Version:    0.5.0
-Release:    4%{?dist}
+Version:    1.0.0
+Release:    1%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -34,7 +34,7 @@ BuildRequires:    python2-pbr
 
 # Test Requirements
 BuildRequires:   python2-mock
-# BuildRequires:   python2-subunit2sql
+BuildRequires:   python2-subunit2sql
 
 Requires:   python2-pbr
 Requires:   python2-future
@@ -51,7 +51,7 @@ Requires:   python2-PyYAML
 Summary:    sql plugin for stestr
 
 Requires:       python2-%{pypi_name} = %{version}-%{release}
-# Requires:       python2-subunit2sql
+Requires:       python2-subunit2sql
 
 %description    -n python2-%{pypi_name}-sql
 It contains the sql plugin for stestr.
@@ -179,6 +179,9 @@ ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
 %endif
 
 %changelog
+* Fri Sep 15 2017 Chandan Kumar <chkumar246@gmail.com> - 1.0.0-1
+- Bumped to 1.0.0
+
 * Thu Aug 10 2017 Chandan Kumar <chkumar246@gmail.com> - 0.5.0-4
 - Added -sql subpackage
 
